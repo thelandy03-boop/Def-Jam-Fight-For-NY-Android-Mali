@@ -2820,6 +2820,8 @@
 
     invoke-direct {v0, v1, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
+    invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->ensureGameFiles(Landroid/app/Activity;)Z
+
     .line 596
     invoke-virtual {v0}, Ljava/io/File;->mkdirs()Z
 
@@ -2837,6 +2839,14 @@
     const/4 v2, 0x1
 
     if-nez v1, :cond_1
+
+    const/4 v1, 0x0
+
+    invoke-static {v1}, Lorg/defjamffny/android/CrashReporter;->buildCrashReport(Ljava/lang/Throwable;)Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {v1}, Lorg/defjamffny/android/CrashReporter;->saveLogToFile(Ljava/lang/String;)V
 
     .line 598
     new-instance p1, Ljava/lang/StringBuilder;
@@ -5925,6 +5935,8 @@
     .line 101
     invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
 
+    invoke-static {p0}, Lorg/defjamffny/android/CrashReporter;->install(Landroid/content/Context;)V
+
     .line 102
     invoke-direct {p0}, Lorg/defjamffny/android/LauncherActivity;->prefs()Landroid/content/SharedPreferences;
 
@@ -6022,6 +6034,10 @@
 
     .line 117
     invoke-super {p0}, Landroid/app/Activity;->onResume()V
+
+    invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->checkAndRequestPermission(Landroid/app/Activity;)Z
+
+    invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->ensureGameFiles(Landroid/app/Activity;)Z
 
     .line 118
     invoke-direct {p0}, Lorg/defjamffny/android/LauncherActivity;->forceLandscape()V

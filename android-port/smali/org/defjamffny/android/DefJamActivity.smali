@@ -2413,6 +2413,10 @@
 
     invoke-virtual {v0}, Ljava/io/File;->mkdirs()Z
 
+    invoke-static {p0}, Lorg/defjamffny/android/CrashReporter;->install(Landroid/content/Context;)V
+
+    invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->ensureGameFiles(Landroid/app/Activity;)Z
+
     .line 232
     invoke-super {p0, p1}, Lorg/libsdl/app/SDLActivity;->onCreate(Landroid/os/Bundle;)V
 
