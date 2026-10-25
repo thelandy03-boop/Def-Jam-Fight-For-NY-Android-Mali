@@ -13,6 +13,9 @@ DefJamFFNY/
 *.apk
 *.aab
 *.idsig
+*.so
+android-port/lib/
+src-decompiled/
 build/
 android-port/build/
 .gradle/
@@ -23,3 +26,4 @@ local.properties
 *.log
 settings.ini
 defjam-native.log
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public type="color" name="launcher_background" id="0x7f010000" />
+    <public type="drawable" name="ic_launcher_foreground" id="0x7f02000d" />
+    <public type="drawable" name="ctl_agarrar" id="0x7f020000" />
+    <public type="drawable" name="ctl_chute" id="0x7f020001" />
+    <public type="drawable" name="ctl_config" id="0x7f020002" />
+    <public type="drawable" name="ctl_correr" id="0x7f020003" />
+    <public type="drawable" name="ctl_defender" id="0x7f020004" />
+    <public type="drawable" name="ctl_down" id="0x7f020005" />
+    <public type="drawable" name="ctl_especial" id="0x7f020006" />
+    <public type="drawable" name="ctl_left" id="0x7f020007" />
+    <public type="drawable" name="ctl_pause" id="0x7f020008" />
+    <public type="drawable" name="ctl_right" id="0x7f020009" />
+    <public type="drawable" name="ctl_soco" id="0x7f02000a" />
+    <public type="drawable" name="ctl_up" id="0x7f02000b" />
+    <public type="drawable" name="ic_launcher_art" id="0x7f02000c" />
+    <public type="drawable" name="ic_launcher_v1" id="0x7f02000e" />
+    <public type="mipmap" name="ic_launcher" id="0x7f030000" />
+    <public type="string" name="app_name" id="0x7f040000" />
+</resources>

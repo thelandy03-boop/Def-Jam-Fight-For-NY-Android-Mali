@@ -1,0 +1,26 @@
+!!brut.androlib.meta.MetaInfo
+apkFileName: Def.Jam.apk
+compressionType: false
+doNotCompress:
+- classes.dex
+- resources.arsc
+- png
+- jpg
+isFrameworkApk: false
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: null
+sdkInfo:
+  minSdkVersion: '29'
+  targetSdkVersion: '34'
+sharedLibrary: false
+sparseResources: false
+unknownFiles: {}
+usesFramework:
+  ids:
+  - 1
+  tag: null
+version: 2.7.0-dirty
+versionInfo:
+  versionCode: '117'
+  versionName: '1.0'
