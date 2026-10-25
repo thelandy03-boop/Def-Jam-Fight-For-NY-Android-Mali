@@ -6,8 +6,8 @@ Edición y adaptación del port nativo de **Def Jam: Fight for NY** (ARM64) para
 
 ## 🚀 Descarga Rápida
 
-* 📦 **APK Optimizado y Firmado (v1.0.0):** [Descargar DefJam-Mali-Edition-Signed.apk](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/download/v1.0.0/DefJam-Mali-Edition-Signed.apk)
-* 🏷️ **Último Release:** [Ver Release v1.0.0](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/tag/v1.0.0)
+* 📦 **APK Optimizado y Firmado (v1.1.0):** [Descargar DefJam-Mali-Edition-v1.1.0-Signed.apk](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/download/v1.1.0/DefJam-Mali-Edition-v1.1.0-Signed.apk)
+* 🏷️ **Último Release:** [Ver Release v1.1.0](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/tag/v1.1.0)
 
 ---
 
@@ -17,19 +17,22 @@ Edición y adaptación del port nativo de **Def Jam: Fight for NY** (ARM64) para
    - *Problema:* El port original forzaba `--vk-async=1`. Los controladores de MediaTek para GPUs Mali Bifrost (Mali-G52) sufrían congelamientos y cierres forzados en `vulkan.mali.so`.
    - *Solución:* Modificado a modo síncrono `--vk-async=0`, garantizando estabilidad total sin sobrecargar las colas de la GPU.
 
-2. **AutoSetup Inteligente de Archivos (`AutoSetup`)**:
+2. **Auto-Actualización In-App Desatendida (`AppUpdater`)**:
+   - *Función:* La app comprueba en segundo plano las nuevas versiones en GitHub Releases. Si encuentra una versión superior, descarga el paquete y se actualiza a sí misma en segundo plano sin obligar al usuario a reinstalar manualmente (compatible con Android 12, 13 y 14).
+
+3. **Reportes Automáticos Silenciosos a GitHub (`CrashReporter`)**:
+   - *Función:* En caso de fallo, recopila la ficha técnica completa del dispositivo, rutas de archivos y logcat reciente, y los envía de forma 100% silenciosa a **GitHub Issues**.
+   - *Privacidad y facilidad:* **El usuario no necesita tener cuenta ni aplicación de GitHub**; la app se comunica de forma autónoma con la API de GitHub usando su clave interna ofuscada.
+
+4. **AutoSetup Inteligente de Archivos (`AutoSetup`)**:
    - *Problema:* Los dumps de MediaFire suelen extraerse como `Def Jam Fight For Droidport `, rompiendo la ruta que espera el motor (`game/default.xbe`).
    - *Solución:* La app escanea automáticamente el almacenamiento (incluyendo `Download/` y `DefJamFFNY/`), localiza `default.xbe` y configura los archivos en la carpeta correcta sin requerir renombrado manual.
 
-3. **Solicitud Automática de Permisos (Android 11 a 14 / HiOS)**:
+5. **Solicitud Automática de Permisos (Android 11 a 14 / HiOS)**:
    - *Problema:* En Android 13/14, las apps no pueden leer la memoria interna sin el permiso `MANAGE_EXTERNAL_STORAGE`.
    - *Solución:* La app detecta automáticamente al iniciar si falta el permiso y abre directamente la pantalla de ajustes del sistema para concederlo en un solo toque.
 
-4. **CrashReporter y Logs de Diagnóstico**:
-   - Se integró un manejador global de excepciones que registra información del dispositivo (modelo, CPU, GPU, versión de Android, rutas y logcat reciente) y genera el archivo `DefJamFFNY/defjam_crash.log`.
-   - Enlace directo con un clic para abrir un reporte pre-llenado en **GitHub Issues**.
-
-5. **Memoria Optimizada (`largeHeap="true"`)**:
+6. **Memoria Optimizada (`largeHeap="true"`)**:
    - Habilitado el flag de memoria extendida en el `AndroidManifest.xml` para prevenir cierres por falta de RAM en multitarea.
 
 ---
