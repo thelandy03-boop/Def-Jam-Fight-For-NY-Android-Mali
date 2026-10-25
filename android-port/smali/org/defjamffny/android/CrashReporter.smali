@@ -9,6 +9,7 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Lorg/defjamffny/android/CrashReporter$AsyncSenderTask;,
         Lorg/defjamffny/android/CrashReporter$SyncSender;,
         Lorg/defjamffny/android/CrashReporter$PendingFlusher;
     }
@@ -160,26 +161,15 @@
     return-void
 .end method
 
-.method static synthetic access$000()Ljava/io/File;
-    .registers 1
-
-    .line 27
-    invoke-static {}, Lorg/defjamffny/android/CrashReporter;->getPendingReportFile()Ljava/io/File;
-
-    move-result-object v0
-
-    return-object v0
-.end method
-
 .method public static buildCrashReport(Ljava/lang/Throwable;)Ljava/lang/String;
-    .registers 9
+    .registers 10
 
-    .line 155
+    .line 176
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 156
+    .line 177
     new-instance v1, Ljava/text/SimpleDateFormat;
 
     const-string v2, "yyyy-MM-dd HH:mm:ss"
@@ -196,12 +186,12 @@
 
     move-result-object v1
 
-    .line 158
+    .line 179
     const-string v2, "### Def Jam Crash & Diagnostic Report\n\n"
 
     invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 159
+    .line 180
     const-string v2, "- **Fecha:** "
 
     invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -216,7 +206,7 @@
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 160
+    .line 181
     const-string v1, "- **Dispositivo:** `"
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -245,7 +235,7 @@
 
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 161
+    .line 182
     const-string v1, "- **Hardware/Board:** `"
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -272,7 +262,7 @@
 
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 162
+    .line 183
     const-string v1, "- **Android:** `"
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -301,52 +291,53 @@
 
     invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 163
+    .line 184
     const-string v1, "- **ABIs Soportadas:** `"
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 164
+    .line 185
     sget-object v1, Landroid/os/Build;->SUPPORTED_ABIS:[Ljava/lang/String;
 
     if-eqz v1, :cond_9b
 
-    .line 165
+    .line 186
     sget-object v1, Landroid/os/Build;->SUPPORTED_ABIS:[Ljava/lang/String;
 
-    array-length v5, v1
+    array-length v6, v1
 
-    const/4 v6, 0x0
+    const/4 v7, 0x0
 
     :goto_8d
-    if-ge v6, v5, :cond_9b
+    if-ge v7, v6, :cond_9b
 
-    aget-object v7, v1, v6
+    aget-object v8, v1, v7
 
-    .line 166
-    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 187
+    invoke-virtual {v0, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v7
+    move-result-object v8
 
-    invoke-virtual {v7, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v8, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 165
-    add-int/lit8 v6, v6, 0x1
+    .line 186
+    add-int/lit8 v7, v7, 0x1
 
     goto :goto_8d
 
-    .line 169
+    .line 190
     :cond_9b
     invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 171
+    .line 192
     sget v1, Landroid/os/Build$VERSION;->SDK_INT:I
 
     const/16 v3, 0x1e
 
-    if-lt v1, v3, :cond_b5
+    if-lt v1, v3, :cond_c8
 
-    .line 172
+    .line 194
+    :try_start_a4
     const-string v1, "- **Permiso All Files (MANAGE_EXTERNAL_STORAGE):** `"
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -362,21 +353,49 @@
     move-result-object v1
 
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :try_end_b5
+    .catchall {:try_start_a4 .. :try_end_b5} :catchall_b6
 
-    .line 175
-    :cond_b5
+    .line 197
+    goto :goto_c8
+
+    .line 195
+    :catchall_b6
+    move-exception v1
+
+    .line 196
+    const-string v3, "- **Permiso All Files:** Error verificando ("
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 201
+    :cond_c8
+    :goto_c8
+    :try_start_c8
     invoke-static {}, Lorg/defjamffny/android/AutoSetup;->getGameDir()Ljava/io/File;
 
     move-result-object v1
 
-    .line 176
+    .line 202
     new-instance v3, Ljava/io/File;
 
     const-string v5, "default.xbe"
 
     invoke-direct {v3, v1, v5}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 177
+    .line 203
     const-string v5, "- **Ruta del juego esperada:** `"
 
     invoke-virtual {v0, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -393,7 +412,7 @@
 
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 178
+    .line 204
     const-string v1, "- **default.xbe existe:** `"
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -410,15 +429,15 @@
 
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 180
+    .line 206
     invoke-static {}, Lorg/defjamffny/android/AutoSetup;->findXbe()Ljava/io/File;
 
     move-result-object v1
 
-    .line 181
-    if-eqz v1, :cond_fa
+    .line 207
+    if-eqz v1, :cond_10d
 
-    .line 182
+    .line 208
     const-string v3, "- **default.xbe encontrado en:** `"
 
     invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
@@ -435,55 +454,82 @@
 
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    goto :goto_ff
+    goto :goto_112
 
-    .line 184
-    :cond_fa
-    const-string v1, "- **default.xbe encontrado en:** `NINGUN LUGAR (Faltan archivos)`\n"
+    .line 210
+    :cond_10d
+    const-string v1, "- **default.xbe encontrado en:** `NINGUN LUGAR (Faltan archivos del juego)`\n"
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :try_end_112
+    .catchall {:try_start_c8 .. :try_end_112} :catchall_113
 
-    .line 187
-    :goto_ff
+    .line 214
+    :goto_112
+    goto :goto_125
+
+    .line 212
+    :catchall_113
+    move-exception v1
+
+    .line 213
+    const-string v3, "- **Error comprobando archivos:** `"
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v1}, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 216
+    :goto_125
     const-string v1, "\n```\n"
 
-    if-eqz p0, :cond_11f
+    if-eqz p0, :cond_145
 
-    .line 188
+    .line 217
     const-string v3, "\n```text\n--- EXCEPCION / STACK TRACE ---\n"
 
     invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 189
+    .line 218
     new-instance v3, Ljava/io/StringWriter;
 
     invoke-direct {v3}, Ljava/io/StringWriter;-><init>()V
 
-    .line 190
+    .line 219
     new-instance v4, Ljava/io/PrintWriter;
 
     invoke-direct {v4, v3}, Ljava/io/PrintWriter;-><init>(Ljava/io/Writer;)V
 
     invoke-virtual {p0, v4}, Ljava/lang/Throwable;->printStackTrace(Ljava/io/PrintWriter;)V
 
-    .line 191
+    .line 220
     invoke-virtual {v3}, Ljava/io/StringWriter;->toString()Ljava/lang/String;
 
     move-result-object p0
 
     invoke-virtual {v0, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 192
+    .line 221
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 195
-    :cond_11f
+    .line 224
+    :cond_145
     const-string p0, "\n```text\n--- LOGCAT RECIENTE ---\n"
 
     invoke-virtual {v0, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 197
-    :try_start_124
+    .line 226
+    :try_start_14a
     invoke-static {}, Ljava/lang/Runtime;->getRuntime()Ljava/lang/Runtime;
 
     move-result-object p0
@@ -494,7 +540,7 @@
 
     move-result-object p0
 
-    .line 198
+    .line 227
     new-instance v3, Ljava/io/BufferedReader;
 
     new-instance v4, Ljava/io/InputStreamReader;
@@ -507,23 +553,23 @@
 
     invoke-direct {v3, v4}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
 
-    .line 200
-    :cond_13c
-    :goto_13c
+    .line 229
+    :cond_162
+    :goto_162
     invoke-virtual {v3}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
 
     move-result-object p0
 
-    if-eqz p0, :cond_192
+    if-eqz p0, :cond_1b8
 
-    .line 201
+    .line 230
     const-string v4, "defjam"
 
     invoke-virtual {p0, v4}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v4
 
-    if-nez v4, :cond_18a
+    if-nez v4, :cond_1b0
 
     const-string v4, "SDL"
 
@@ -531,7 +577,7 @@
 
     move-result v4
 
-    if-nez v4, :cond_18a
+    if-nez v4, :cond_1b0
 
     const-string v4, "vulkan"
 
@@ -539,16 +585,16 @@
 
     move-result v4
 
-    if-nez v4, :cond_18a
+    if-nez v4, :cond_1b0
 
     const-string v4, "DEBUG"
 
-    .line 202
+    .line 231
     invoke-virtual {p0, v4}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v4
 
-    if-nez v4, :cond_18a
+    if-nez v4, :cond_1b0
 
     const-string v4, "FATAL"
 
@@ -556,7 +602,7 @@
 
     move-result v4
 
-    if-nez v4, :cond_18a
+    if-nez v4, :cond_1b0
 
     const-string v4, "zygote"
 
@@ -564,16 +610,16 @@
 
     move-result v4
 
-    if-nez v4, :cond_18a
+    if-nez v4, :cond_1b0
 
     const-string v4, "mali"
 
-    .line 203
+    .line 232
     invoke-virtual {p0, v4}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
 
     move-result v4
 
-    if-nez v4, :cond_18a
+    if-nez v4, :cond_1b0
 
     const-string v4, "AutoSetup"
 
@@ -581,7 +627,7 @@
 
     move-result v4
 
-    if-nez v4, :cond_18a
+    if-nez v4, :cond_1b0
 
     const-string v4, "AppUpdater"
 
@@ -589,37 +635,37 @@
 
     move-result v4
 
-    if-eqz v4, :cond_13c
+    if-eqz v4, :cond_162
 
-    .line 204
-    :cond_18a
+    .line 233
+    :cond_1b0
     invoke-virtual {v0, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object p0
 
     invoke-virtual {p0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    goto :goto_13c
+    goto :goto_162
 
-    .line 207
-    :cond_192
+    .line 236
+    :cond_1b8
     invoke-virtual {v3}, Ljava/io/BufferedReader;->close()V
-    :try_end_195
-    .catchall {:try_start_124 .. :try_end_195} :catchall_196
+    :try_end_1bb
+    .catchall {:try_start_14a .. :try_end_1bb} :catchall_1bc
 
-    goto :goto_197
+    goto :goto_1bd
 
-    .line 208
-    :catchall_196
+    .line 237
+    :catchall_1bc
     move-exception p0
 
-    :goto_197
+    :goto_1bd
     nop
 
-    .line 209
+    .line 238
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 211
+    .line 240
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object p0
@@ -630,57 +676,101 @@
 .method public static checkAndSendPendingReports(Landroid/content/Context;)V
     .registers 3
 
-    .line 287
-    new-instance p0, Ljava/lang/Thread;
+    .line 343
+    new-instance v0, Ljava/lang/Thread;
 
-    new-instance v0, Lorg/defjamffny/android/CrashReporter$PendingFlusher;
+    new-instance v1, Lorg/defjamffny/android/CrashReporter$PendingFlusher;
 
-    const/4 v1, 0x0
+    invoke-direct {v1, p0}, Lorg/defjamffny/android/CrashReporter$PendingFlusher;-><init>(Landroid/content/Context;)V
 
-    invoke-direct {v0, v1}, Lorg/defjamffny/android/CrashReporter$PendingFlusher;-><init>(Lorg/defjamffny/android/CrashReporter$1;)V
+    invoke-direct {v0, v1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
 
-    invoke-direct {p0, v0}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+    invoke-virtual {v0}, Ljava/lang/Thread;->start()V
 
-    invoke-virtual {p0}, Ljava/lang/Thread;->start()V
-
-    .line 288
+    .line 344
     return-void
 .end method
 
-.method public static clearPendingReport()V
-    .registers 2
+.method public static clearPendingReport(Landroid/content/Context;)V
+    .registers 4
 
-    .line 255
-    :try_start_0
-    invoke-static {}, Lorg/defjamffny/android/CrashReporter;->getPendingReportFile()Ljava/io/File;
+    .line 284
+    const-string v0, "pending_crash.log"
 
-    move-result-object v0
+    if-eqz p0, :cond_19
 
-    .line 256
-    if-eqz v0, :cond_11
+    .line 286
+    :try_start_4
+    new-instance v1, Ljava/io/File;
 
-    invoke-virtual {v0}, Ljava/io/File;->exists()Z
+    invoke-virtual {p0}, Landroid/content/Context;->getFilesDir()Ljava/io/File;
 
-    move-result v1
+    move-result-object p0
 
-    if-eqz v1, :cond_11
+    invoke-direct {v1, p0, v0}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 257
-    invoke-virtual {v0}, Ljava/io/File;->delete()Z
-    :try_end_f
-    .catchall {:try_start_0 .. :try_end_f} :catchall_10
+    .line 287
+    invoke-virtual {v1}, Ljava/io/File;->exists()Z
 
-    goto :goto_11
+    move-result p0
 
-    .line 259
-    :catchall_10
-    move-exception v0
+    if-eqz p0, :cond_18
 
-    :cond_11
-    :goto_11
+    invoke-virtual {v1}, Ljava/io/File;->delete()Z
+    :try_end_16
+    .catchall {:try_start_4 .. :try_end_16} :catchall_17
+
+    goto :goto_18
+
+    .line 288
+    :catchall_17
+    move-exception p0
+
+    :cond_18
+    :goto_18
     nop
 
-    .line 260
+    .line 291
+    :cond_19
+    :try_start_19
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+
+    move-result-object p0
+
+    .line 292
+    new-instance v1, Ljava/io/File;
+
+    const-string v2, "DefJamFFNY"
+
+    invoke-direct {v1, p0, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    .line 293
+    new-instance p0, Ljava/io/File;
+
+    invoke-direct {p0, v1, v0}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    .line 294
+    invoke-virtual {p0}, Ljava/io/File;->exists()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_34
+
+    invoke-virtual {p0}, Ljava/io/File;->delete()Z
+    :try_end_32
+    .catchall {:try_start_19 .. :try_end_32} :catchall_33
+
+    goto :goto_34
+
+    .line 295
+    :catchall_33
+    move-exception p0
+
+    :cond_34
+    :goto_34
+    nop
+
+    .line 296
     return-void
 .end method
 
@@ -803,46 +893,6 @@
     return-object v0
 .end method
 
-.method private static getPendingReportFile()Ljava/io/File;
-    .registers 3
-
-    .line 233
-    :try_start_0
-    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
-
-    move-result-object v0
-
-    .line 234
-    new-instance v1, Ljava/io/File;
-
-    const-string v2, "DefJamFFNY"
-
-    invoke-direct {v1, v0, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
-
-    .line 235
-    invoke-virtual {v1}, Ljava/io/File;->mkdirs()Z
-
-    .line 236
-    new-instance v0, Ljava/io/File;
-
-    const-string v2, "pending_crash.log"
-
-    invoke-direct {v0, v1, v2}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
-    :try_end_15
-    .catchall {:try_start_0 .. :try_end_15} :catchall_16
-
-    return-object v0
-
-    .line 237
-    :catchall_16
-    move-exception v0
-
-    .line 238
-    const/4 v0, 0x0
-
-    return-object v0
-.end method
-
 .method public static install(Landroid/content/Context;)V
     .registers 2
 
@@ -860,7 +910,7 @@
 .method public static openGitHubIssue(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
     .registers 5
 
-    .line 292
+    .line 348
     const-string v0, "UTF-8"
 
     :try_start_2
@@ -868,12 +918,12 @@
 
     move-result-object p1
 
-    .line 293
+    .line 349
     invoke-static {p2, v0}, Ljava/net/URLEncoder;->encode(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object p2
 
-    .line 294
+    .line 350
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -902,7 +952,7 @@
 
     move-result-object p1
 
-    .line 295
+    .line 351
     new-instance p2, Landroid/content/Intent;
 
     const-string v0, "android.intent.action.VIEW"
@@ -913,26 +963,44 @@
 
     invoke-direct {p2, v0, p1}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
 
-    .line 296
+    .line 352
     const/high16 p1, 0x10000000
 
     invoke-virtual {p2, p1}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 297
+    .line 353
     invoke-virtual {p0, p2}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
     :try_end_3a
     .catchall {:try_start_2 .. :try_end_3a} :catchall_3b
 
     goto :goto_3c
 
-    .line 298
+    .line 354
     :catchall_3b
     move-exception p0
 
     :goto_3c
     nop
 
-    .line 299
+    .line 355
+    return-void
+.end method
+
+.method public static postIssueAsync(Ljava/lang/String;Ljava/lang/String;)V
+    .registers 4
+
+    .line 132
+    new-instance v0, Ljava/lang/Thread;
+
+    new-instance v1, Lorg/defjamffny/android/CrashReporter$AsyncSenderTask;
+
+    invoke-direct {v1, p0, p1}, Lorg/defjamffny/android/CrashReporter$AsyncSenderTask;-><init>(Ljava/lang/String;Ljava/lang/String;)V
+
+    invoke-direct {v0, v1}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
+
+    invoke-virtual {v0}, Ljava/lang/Thread;->start()V
+
+    .line 133
     return-void
 .end method
 
@@ -1028,7 +1096,7 @@
     invoke-virtual {v2, v1}, Ljava/net/HttpURLConnection;->setDoOutput(Z)V
 
     .line 91
-    const/16 v3, 0x1770
+    const/16 v3, 0x1b58
 
     invoke-virtual {v2, v3}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
 
@@ -1135,7 +1203,7 @@
 .method public static saveLogToFile(Ljava/lang/String;)V
     .registers 6
 
-    .line 216
+    .line 245
     const-string v0, "UTF-8"
 
     const-string v1, "defjam_crash.log"
@@ -1145,122 +1213,175 @@
 
     move-result-object v2
 
-    .line 217
+    .line 246
     new-instance v3, Ljava/io/File;
 
     const-string v4, "DefJamFFNY"
 
     invoke-direct {v3, v2, v4}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 218
+    .line 247
     invoke-virtual {v3}, Ljava/io/File;->mkdirs()Z
 
-    .line 219
+    .line 248
     new-instance v4, Ljava/io/File;
 
     invoke-direct {v4, v3, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 220
+    .line 249
     new-instance v3, Ljava/io/FileOutputStream;
 
     invoke-direct {v3, v4}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
 
-    .line 221
+    .line 250
     invoke-virtual {p0, v0}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
 
     move-result-object v4
 
     invoke-virtual {v3, v4}, Ljava/io/FileOutputStream;->write([B)V
 
-    .line 222
+    .line 251
     invoke-virtual {v3}, Ljava/io/FileOutputStream;->close()V
 
-    .line 224
+    .line 253
     new-instance v3, Ljava/io/File;
 
     invoke-direct {v3, v2, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 225
+    .line 254
     new-instance v1, Ljava/io/FileOutputStream;
 
     invoke-direct {v1, v3}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
 
-    .line 226
+    .line 255
     invoke-virtual {p0, v0}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
 
     move-result-object p0
 
     invoke-virtual {v1, p0}, Ljava/io/FileOutputStream;->write([B)V
 
-    .line 227
+    .line 256
     invoke-virtual {v1}, Ljava/io/FileOutputStream;->close()V
     :try_end_3a
     .catchall {:try_start_4 .. :try_end_3a} :catchall_3b
 
     goto :goto_3c
 
-    .line 228
+    .line 257
     :catchall_3b
     move-exception p0
 
     :goto_3c
     nop
 
-    .line 229
+    .line 258
     return-void
 .end method
 
-.method public static savePendingReport(Ljava/lang/String;)V
-    .registers 3
+.method public static savePendingReport(Landroid/content/Context;Ljava/lang/String;)V
+    .registers 6
 
-    .line 244
-    :try_start_0
-    invoke-static {}, Lorg/defjamffny/android/CrashReporter;->getPendingReportFile()Ljava/io/File;
-
-    move-result-object v0
-
-    .line 245
-    if-eqz v0, :cond_19
-
-    .line 246
-    new-instance v1, Ljava/io/FileOutputStream;
-
-    invoke-direct {v1, v0}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
-
-    .line 247
+    .line 262
     const-string v0, "UTF-8"
 
-    invoke-virtual {p0, v0}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
+    const-string v1, "pending_crash.log"
+
+    if-eqz p0, :cond_21
+
+    .line 264
+    :try_start_6
+    new-instance v2, Ljava/io/File;
+
+    invoke-virtual {p0}, Landroid/content/Context;->getFilesDir()Ljava/io/File;
+
+    move-result-object p0
+
+    invoke-direct {v2, p0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    .line 265
+    new-instance p0, Ljava/io/FileOutputStream;
+
+    invoke-direct {p0, v2}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+
+    .line 266
+    invoke-virtual {p1, v0}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
+
+    move-result-object v2
+
+    invoke-virtual {p0, v2}, Ljava/io/FileOutputStream;->write([B)V
+
+    .line 267
+    invoke-virtual {p0}, Ljava/io/FileOutputStream;->close()V
+    :try_end_1e
+    .catchall {:try_start_6 .. :try_end_1e} :catchall_1f
+
+    goto :goto_20
+
+    .line 268
+    :catchall_1f
+    move-exception p0
+
+    :goto_20
+    nop
+
+    .line 273
+    :cond_21
+    :try_start_21
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+
+    move-result-object p0
+
+    .line 274
+    new-instance v2, Ljava/io/File;
+
+    const-string v3, "DefJamFFNY"
+
+    invoke-direct {v2, p0, v3}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    .line 275
+    invoke-virtual {v2}, Ljava/io/File;->mkdirs()Z
+
+    .line 276
+    new-instance p0, Ljava/io/File;
+
+    invoke-direct {p0, v2, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    .line 277
+    new-instance v1, Ljava/io/FileOutputStream;
+
+    invoke-direct {v1, p0}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+
+    .line 278
+    invoke-virtual {p1, v0}, Ljava/lang/String;->getBytes(Ljava/lang/String;)[B
 
     move-result-object p0
 
     invoke-virtual {v1, p0}, Ljava/io/FileOutputStream;->write([B)V
 
-    .line 248
+    .line 279
     invoke-virtual {v1}, Ljava/io/FileOutputStream;->close()V
-    :try_end_17
-    .catchall {:try_start_0 .. :try_end_17} :catchall_18
+    :try_end_43
+    .catchall {:try_start_21 .. :try_end_43} :catchall_44
 
-    goto :goto_19
+    goto :goto_45
 
-    .line 250
-    :catchall_18
+    .line 280
+    :catchall_44
     move-exception p0
 
-    :cond_19
-    :goto_19
+    :goto_45
     nop
 
-    .line 251
+    .line 281
     return-void
 .end method
 
 
 # virtual methods
 .method public uncaughtException(Ljava/lang/Thread;Ljava/lang/Throwable;)V
-    .registers 8
+    .registers 9
 
-    .line 136
+    .line 157
     const/4 v0, 0x1
 
     :try_start_1
@@ -1268,13 +1389,15 @@
 
     move-result-object v1
 
-    .line 137
+    .line 158
     invoke-static {v1}, Lorg/defjamffny/android/CrashReporter;->saveLogToFile(Ljava/lang/String;)V
 
-    .line 138
-    invoke-static {v1}, Lorg/defjamffny/android/CrashReporter;->savePendingReport(Ljava/lang/String;)V
+    .line 159
+    iget-object v2, p0, Lorg/defjamffny/android/CrashReporter;->context:Landroid/content/Context;
 
-    .line 140
+    invoke-static {v2, v1}, Lorg/defjamffny/android/CrashReporter;->savePendingReport(Landroid/content/Context;Ljava/lang/String;)V
+
+    .line 161
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
@@ -1325,56 +1448,58 @@
 
     move-result-object v2
 
-    .line 141
+    .line 162
     new-instance v3, Ljava/lang/Thread;
 
     new-instance v4, Lorg/defjamffny/android/CrashReporter$SyncSender;
 
-    invoke-direct {v4, v2, v1}, Lorg/defjamffny/android/CrashReporter$SyncSender;-><init>(Ljava/lang/String;Ljava/lang/String;)V
+    iget-object v5, p0, Lorg/defjamffny/android/CrashReporter;->context:Landroid/content/Context;
+
+    invoke-direct {v4, v5, v2, v1}, Lorg/defjamffny/android/CrashReporter$SyncSender;-><init>(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
 
     invoke-direct {v3, v4}, Ljava/lang/Thread;-><init>(Ljava/lang/Runnable;)V
 
-    .line 142
+    .line 163
     invoke-virtual {v3}, Ljava/lang/Thread;->start()V
 
-    .line 143
-    const-wide/16 v1, 0xbb8
+    .line 164
+    const-wide/16 v1, 0xdac
 
     invoke-virtual {v3, v1, v2}, Ljava/lang/Thread;->join(J)V
-    :try_end_50
-    .catchall {:try_start_1 .. :try_end_50} :catchall_55
+    :try_end_54
+    .catchall {:try_start_1 .. :try_end_54} :catchall_59
 
-    .line 146
+    .line 167
     iget-object v1, p0, Lorg/defjamffny/android/CrashReporter;->defaultHandler:Ljava/lang/Thread$UncaughtExceptionHandler;
 
-    if-eqz v1, :cond_5e
+    if-eqz v1, :cond_62
 
-    .line 147
-    goto :goto_5a
+    .line 168
+    goto :goto_5e
 
-    .line 144
-    :catchall_55
+    .line 165
+    :catchall_59
     move-exception v1
 
-    .line 146
+    .line 167
     iget-object v1, p0, Lorg/defjamffny/android/CrashReporter;->defaultHandler:Ljava/lang/Thread$UncaughtExceptionHandler;
 
-    if-eqz v1, :cond_5e
+    if-eqz v1, :cond_62
 
-    .line 147
-    :goto_5a
+    .line 168
+    :goto_5e
     invoke-interface {v1, p1, p2}, Ljava/lang/Thread$UncaughtExceptionHandler;->uncaughtException(Ljava/lang/Thread;Ljava/lang/Throwable;)V
 
-    goto :goto_62
+    goto :goto_66
 
-    .line 149
-    :cond_5e
+    .line 170
+    :cond_62
     invoke-static {v0}, Ljava/lang/System;->exit(I)V
 
-    .line 151
+    .line 172
     nop
 
-    .line 152
-    :goto_62
+    .line 173
+    :goto_66
     return-void
 .end method

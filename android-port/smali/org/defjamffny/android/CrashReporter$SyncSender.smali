@@ -18,25 +18,30 @@
 
 
 # instance fields
+.field private final context:Landroid/content/Context;
+
 .field private final report:Ljava/lang/String;
 
 .field private final title:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Ljava/lang/String;Ljava/lang/String;)V
-    .registers 3
+.method constructor <init>(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
+    .registers 4
 
-    .line 120
+    .line 140
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 121
-    iput-object p1, p0, Lorg/defjamffny/android/CrashReporter$SyncSender;->title:Ljava/lang/String;
+    .line 141
+    iput-object p1, p0, Lorg/defjamffny/android/CrashReporter$SyncSender;->context:Landroid/content/Context;
 
-    .line 122
-    iput-object p2, p0, Lorg/defjamffny/android/CrashReporter$SyncSender;->report:Ljava/lang/String;
+    .line 142
+    iput-object p2, p0, Lorg/defjamffny/android/CrashReporter$SyncSender;->title:Ljava/lang/String;
 
-    .line 123
+    .line 143
+    iput-object p3, p0, Lorg/defjamffny/android/CrashReporter$SyncSender;->report:Ljava/lang/String;
+
+    .line 144
     return-void
 .end method
 
@@ -45,7 +50,7 @@
 .method public run()V
     .registers 3
 
-    .line 127
+    .line 148
     iget-object v0, p0, Lorg/defjamffny/android/CrashReporter$SyncSender;->title:Ljava/lang/String;
 
     iget-object v1, p0, Lorg/defjamffny/android/CrashReporter$SyncSender;->report:Ljava/lang/String;
@@ -54,12 +59,14 @@
 
     move-result v0
 
-    if-eqz v0, :cond_d
+    if-eqz v0, :cond_f
 
-    .line 128
-    invoke-static {}, Lorg/defjamffny/android/CrashReporter;->clearPendingReport()V
+    .line 149
+    iget-object v0, p0, Lorg/defjamffny/android/CrashReporter$SyncSender;->context:Landroid/content/Context;
 
-    .line 130
-    :cond_d
+    invoke-static {v0}, Lorg/defjamffny/android/CrashReporter;->clearPendingReport(Landroid/content/Context;)V
+
+    .line 151
+    :cond_f
     return-void
 .end method

@@ -2840,46 +2840,7 @@
 
     if-nez v1, :cond_1
 
-    const/4 v1, 0x0
-
-    invoke-static {v1}, Lorg/defjamffny/android/CrashReporter;->buildCrashReport(Ljava/lang/Throwable;)Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-static {v1}, Lorg/defjamffny/android/CrashReporter;->saveLogToFile(Ljava/lang/String;)V
-
-    invoke-static {v1}, Lorg/defjamffny/android/CrashReporter;->savePendingReport(Ljava/lang/String;)V
-
-    invoke-static {p0}, Lorg/defjamffny/android/CrashReporter;->checkAndSendPendingReports(Landroid/content/Context;)V
-
-    .line 598
-    new-instance p1, Ljava/lang/StringBuilder;
-
-    invoke-direct {p1}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v1, "default.xbe not found in "
-
-    invoke-static {v1}, Lorg/defjamffny/android/UiText;->t(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v1
-
-    invoke-virtual {p1, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object p1
-
-    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object p1
-
-    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object p1
-
-    invoke-static {p0, p1, v2}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
-
-    move-result-object p0
-
-    invoke-virtual {p0}, Landroid/widget/Toast;->show()V
+    invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->showMissingFilesDialog(Landroid/app/Activity;)V
 
     return-void
 
