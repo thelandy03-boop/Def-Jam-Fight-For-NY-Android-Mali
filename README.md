@@ -6,8 +6,8 @@ Edición y adaptación del port nativo de **Def Jam: Fight for NY** (ARM64) para
 
 ## 🚀 Descarga Rápida
 
-* 📦 **APK Optimizado y Firmado (v1.1.0):** [Descargar DefJam-Mali-Edition-v1.1.0-Signed.apk](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/download/v1.1.0/DefJam-Mali-Edition-v1.1.0-Signed.apk)
-* 🏷️ **Último Release:** [Ver Release v1.1.0](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/tag/v1.1.0)
+* 📦 **APK Optimizado y Firmado (v1.1.2):** [Descargar DefJam-Mali-Edition-v1.1.2-Signed.apk](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/download/v1.1.2/DefJam-Mali-Edition-v1.1.2-Signed.apk)
+* 🏷️ **Último Release:** [Ver Release v1.1.2](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/tag/v1.1.2)
 
 ---
 

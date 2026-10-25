@@ -3375,6 +3375,22 @@
 
     invoke-static {v1, v7, v2, v6}, Lorg/defjamffny/android/LauncherActivity;->put(Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 
+    const-string v2, "general"
+
+    const-string v6, "skip_intro"
+
+    const-string v7, "true"
+
+    invoke-static {v1, v2, v6, v7}, Lorg/defjamffny/android/LauncherActivity;->put(Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    const-string v2, "system"
+
+    invoke-static {v1, v2, v6, v7}, Lorg/defjamffny/android/LauncherActivity;->put(Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    const-string v2, "debug"
+
+    invoke-static {v1, v2, v6, v7}, Lorg/defjamffny/android/LauncherActivity;->put(Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
     .line 635
     iget-object v2, p0, Lorg/defjamffny/android/LauncherActivity;->aspect:Lorg/defjamffny/android/LauncherActivity$ChoicePill;
 
@@ -5999,10 +6015,6 @@
 
     .line 117
     invoke-super {p0}, Landroid/app/Activity;->onResume()V
-
-    invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->checkAndRequestPermission(Landroid/app/Activity;)Z
-
-    invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->ensureGameFiles(Landroid/app/Activity;)Z
 
     invoke-static {p0}, Lorg/defjamffny/android/CrashReporter;->checkAndSendPendingReports(Landroid/content/Context;)V
 

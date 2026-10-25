@@ -44,10 +44,16 @@
     .registers 3
 
     .line 83
+    const/4 p1, 0x0
+
+    # setter for: Lorg/defjamffny/android/AutoSetup;->permissionDialogShown:Z
+    invoke-static {p1}, Lorg/defjamffny/android/AutoSetup;->access$002(Z)Z
+
+    .line 84
     iget-object p1, p0, Lorg/defjamffny/android/AutoSetup$2;->val$activity:Landroid/app/Activity;
 
     invoke-static {p1}, Lorg/defjamffny/android/AutoSetup;->checkAndRequestPermission(Landroid/app/Activity;)Z
 
-    .line 84
+    .line 85
     return-void
 .end method

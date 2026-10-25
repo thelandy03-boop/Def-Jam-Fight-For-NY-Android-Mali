@@ -2417,6 +2417,18 @@
 
     invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->ensureGameFiles(Landroid/app/Activity;)Z
 
+    :try_start_env
+    const-string v0, "RECOMP_SKIP_INTRO"
+
+    const-string v1, "1"
+
+    const/4 v2, 0x1
+
+    invoke-static {v0, v1, v2}, Landroid/system/Os;->setenv(Ljava/lang/String;Ljava/lang/String;Z)V
+    :try_end_env
+    .catch Ljava/lang/Throwable; {:try_start_env .. :try_end_env} :catch_env
+
+    :catch_env
     .line 232
     invoke-super {p0, p1}, Lorg/libsdl/app/SDLActivity;->onCreate(Landroid/os/Bundle;)V
 

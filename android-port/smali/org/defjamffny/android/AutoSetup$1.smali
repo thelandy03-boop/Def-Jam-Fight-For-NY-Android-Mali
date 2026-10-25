@@ -30,7 +30,7 @@
         }
     .end annotation
 
-    .line 43
+    .line 34
     iput-object p1, p0, Lorg/defjamffny/android/AutoSetup$1;->val$activity:Landroid/app/Activity;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -43,7 +43,7 @@
 .method public onClick(Landroid/content/DialogInterface;I)V
     .registers 4
 
-    .line 47
+    .line 38
     :try_start_0
     new-instance p1, Landroid/content/Intent;
 
@@ -51,7 +51,7 @@
 
     invoke-direct {p1, p2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 48
+    .line 39
     new-instance p2, Ljava/lang/StringBuilder;
 
     invoke-direct {p2}, Ljava/lang/StringBuilder;-><init>()V
@@ -82,21 +82,21 @@
 
     invoke-virtual {p1, p2}, Landroid/content/Intent;->setData(Landroid/net/Uri;)Landroid/content/Intent;
 
-    .line 49
+    .line 40
     iget-object p2, p0, Lorg/defjamffny/android/AutoSetup$1;->val$activity:Landroid/app/Activity;
 
     invoke-virtual {p2, p1}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
     :try_end_2c
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_2c} :catch_2d
 
-    .line 55
+    .line 46
     goto :goto_3d
 
-    .line 50
+    .line 41
     :catch_2d
     move-exception p1
 
-    .line 52
+    .line 43
     :try_start_2e
     new-instance p1, Landroid/content/Intent;
 
@@ -104,7 +104,7 @@
 
     invoke-direct {p1, p2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 53
+    .line 44
     iget-object p2, p0, Lorg/defjamffny/android/AutoSetup$1;->val$activity:Landroid/app/Activity;
 
     invoke-virtual {p2, p1}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
@@ -113,14 +113,14 @@
 
     goto :goto_3c
 
-    .line 54
+    .line 45
     :catch_3b
     move-exception p1
 
     :goto_3c
     nop
 
-    .line 56
+    .line 47
     :goto_3d
     return-void
 .end method
