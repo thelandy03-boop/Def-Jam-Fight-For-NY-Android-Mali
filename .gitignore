@@ -21,6 +21,7 @@ build/
 android-port/build/
 .gradle/
 local.properties
+keystore/
 /tmp/
 
 # Crash logs and runtime files

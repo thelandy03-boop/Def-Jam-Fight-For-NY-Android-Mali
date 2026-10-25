@@ -2848,6 +2848,10 @@
 
     invoke-static {v1}, Lorg/defjamffny/android/CrashReporter;->saveLogToFile(Ljava/lang/String;)V
 
+    invoke-static {v1}, Lorg/defjamffny/android/CrashReporter;->savePendingReport(Ljava/lang/String;)V
+
+    invoke-static {p0}, Lorg/defjamffny/android/CrashReporter;->checkAndSendPendingReports(Landroid/content/Context;)V
+
     .line 598
     new-instance p1, Ljava/lang/StringBuilder;
 
@@ -6038,6 +6042,10 @@
     invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->checkAndRequestPermission(Landroid/app/Activity;)Z
 
     invoke-static {p0}, Lorg/defjamffny/android/AutoSetup;->ensureGameFiles(Landroid/app/Activity;)Z
+
+    invoke-static {p0}, Lorg/defjamffny/android/CrashReporter;->checkAndSendPendingReports(Landroid/content/Context;)V
+
+    invoke-static {p0}, Lorg/defjamffny/android/AppUpdater;->checkForUpdates(Landroid/app/Activity;)V
 
     .line 118
     invoke-direct {p0}, Lorg/defjamffny/android/LauncherActivity;->forceLandscape()V
