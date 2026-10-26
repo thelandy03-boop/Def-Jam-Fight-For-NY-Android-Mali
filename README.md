@@ -6,8 +6,8 @@ Edición y adaptación del port nativo de **Def Jam: Fight for NY** (ARM64) para
 
 ## 🚀 Descarga Rápida
 
-* 📦 **APK Optimizado y Firmado (v1.1.2):** [Descargar DefJam-Mali-Edition-v1.1.2-Signed.apk](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/download/v1.1.2/DefJam-Mali-Edition-v1.1.2-Signed.apk)
-* 🏷️ **Último Release:** [Ver Release v1.1.2](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/tag/v1.1.2)
+* 📦 **APK Optimizado y Firmado (v1.1.3):** [Descargar DefJam-Mali-Edition-v1.1.3-Signed.apk](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/download/v1.1.3/DefJam-Mali-Edition-v1.1.3-Signed.apk)
+* 🏷️ **Último Release:** [Ver Release v1.1.3](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/tag/v1.1.3)
 
 ---
 
@@ -35,6 +35,10 @@ Edición y adaptación del port nativo de **Def Jam: Fight for NY** (ARM64) para
 6. **Memoria Optimizada (`largeHeap="true"`)**:
    - Habilitado el flag de memoria extendida en el `AndroidManifest.xml` para prevenir cierres por falta de RAM en multitarea.
 
+7. **Reproducción Nativa del Logo de EA Games y Transición Fluida (v1.1.3)**:
+   - *Problema:* Al reproducir videos de inicio (`movies/eagames.mad`), el stream se congelaba indefinidamente porque el motor en ARM64 no recibía las banderas atómicas de cierre de stream (`field_24 == 0` y `field_21 == 1`), impidiendo destruir el decoder y transicionar a `movies/thx.mad` y a la pantalla de título.
+   - *Solución:* Parche quirúrgico de 19 instrucciones en ARM64 (`sub_00077020`) que detecta el fin de fotogramas, fuerza atómicamente el estado de cierre del stream y resetea el contador con instrucciones de 64 bits, permitiendo que el logo de EA Games se reproduzca con audio completo y transicione fluidamente hacia THX y la pantalla de inicio.
+
 ---
 
 ## 🎯 Plan de Trabajo (Mali Compatibility Fix) — ESTADO
@@ -44,6 +48,7 @@ Edición y adaptación del port nativo de **Def Jam: Fight for NY** (ARM64) para
 - [x] **Parche de Vulkan Mali**: Modificar argumentos de arranque en `DefJamActivity.smali` (`--vk-async=0`, optimización de hilos de vértices).
 - [x] **Auto-detección de carpeta del juego**: Módulo `AutoSetup` integrado para detectar y vincular carpetas automáticamente.
 - [x] **Permisos automáticos Android 14**: Integrada solicitud directa del permiso de acceso a todos los archivos al iniciar.
+- [x] **Reproducción nativa del logo de EA Games (v1.1.3)**: Corrección de la máquina de estados de video en ARM64 para reproducir la intro y transicionar a THX y menú.
 - [x] **Build y firma del APK final**: Compilado, alineado a 4 bytes y firmado con esquema v3, probado en vivo en Android Móvil y subido a GitHub Releases.
 
 ---
@@ -51,7 +56,7 @@ Edición y adaptación del port nativo de **Def Jam: Fight for NY** (ARM64) para
 ## 📱 Guía de Instalación en Celulares (Tecno Spark 30C y Mali)
 
 1. **Instalar el APK:**
-   Descarga e instala [DefJam-Mali-Edition-Signed.apk](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/download/v1.0.0/DefJam-Mali-Edition-Signed.apk).
+   Descarga e instala [DefJam-Mali-Edition-v1.1.3-Signed.apk](https://github.com/thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali/releases/download/v1.1.3/DefJam-Mali-Edition-v1.1.3-Signed.apk).
 2. **Permisos:**
    Al abrir la app por primera vez, se abrirá la ventana de ajustes del sistema. Selecciona **"Permitir administrar todos los archivos"**.
 3. **Copiar los datos del juego (2.3 GB):**

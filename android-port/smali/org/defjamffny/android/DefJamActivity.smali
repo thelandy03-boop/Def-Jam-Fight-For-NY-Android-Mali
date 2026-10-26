@@ -2420,7 +2420,7 @@
     :try_start_env
     const-string v0, "RECOMP_SKIP_INTRO"
 
-    const-string v1, "1"
+    const-string v1, "0"
 
     const/4 v2, 0x1
 

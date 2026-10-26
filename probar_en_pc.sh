@@ -12,7 +12,7 @@ echo "=========================================================="
 rm -f /run/user/1000/wayland-0 /run/user/1000/wayland-0.lock 2>/dev/null || true
 
 # 2. Comprobar si el contenedor Waydroid está corriendo
-if ! waydroid status 2>/dev/null | grep -q "Container:.*RUNNING"; then
+if ! systemctl is-active --quiet waydroid-container 2>/dev/null; then
     echo ">> Iniciando contenedor Waydroid..."
     sudo systemctl start waydroid-container
     sleep 2
@@ -24,16 +24,17 @@ if ! waydroid status 2>/dev/null | grep -q "Session:.*RUNNING"; then
     DISPLAY=:0.0 cage -- bash -c '
         waydroid session start &
         sleep 4
-        waydroid show-full-ui
+        waydroid show-full-ui &
+        wait
     ' > /tmp/cage.log 2>&1 &
     
     echo ">> Esperando a que arranque la interfaz gráfica..."
-    sleep 6
+    sleep 8
 fi
 
-# 4. Instalar el APK más reciente (v1.1.1)
-echo ">> Instalando APK v1.1.1 en Waydroid..."
-waydroid app install "/home/landy/Descargas/app/Def-Jam-Android/DefJam-Mali-Edition-v1.1.1-Signed.apk"
+# 4. Instalar el APK más reciente (v1.1.3)
+echo ">> Instalando APK v1.1.3 en Waydroid..."
+waydroid app install "/home/landy/Descargas/app/Def-Jam-Android/DefJam-Mali-Edition-v1.1.3-Signed.apk"
 
 # 5. Lanzar el juego directamente
 echo ">> Abriendo Def Jam..."

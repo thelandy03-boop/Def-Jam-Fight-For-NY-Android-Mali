@@ -152,7 +152,7 @@
 
     if-nez v4, :cond_b8
 
-    const-string v4, "v1.1.2"
+    const-string v4, "v1.1.3"
 
     # invokes: Lorg/defjamffny/android/AppUpdater;->isNewerVersion(Ljava/lang/String;Ljava/lang/String;)Z
     invoke-static {v3, v4}, Lorg/defjamffny/android/AppUpdater;->access$000(Ljava/lang/String;Ljava/lang/String;)Z

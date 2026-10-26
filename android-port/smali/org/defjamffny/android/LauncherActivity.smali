@@ -3375,21 +3375,13 @@
 
     invoke-static {v1, v7, v2, v6}, Lorg/defjamffny/android/LauncherActivity;->put(Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 
-    const-string v2, "general"
+    const-string v9, "debug"
 
-    const-string v6, "skip_intro"
+    const-string v10, "skip_intro"
 
-    const-string v7, "true"
+    const-string v11, "false"
 
-    invoke-static {v1, v2, v6, v7}, Lorg/defjamffny/android/LauncherActivity;->put(Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-
-    const-string v2, "system"
-
-    invoke-static {v1, v2, v6, v7}, Lorg/defjamffny/android/LauncherActivity;->put(Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-
-    const-string v2, "debug"
-
-    invoke-static {v1, v2, v6, v7}, Lorg/defjamffny/android/LauncherActivity;->put(Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v1, v9, v10, v11}, Lorg/defjamffny/android/LauncherActivity;->put(Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 
     .line 635
     iget-object v2, p0, Lorg/defjamffny/android/LauncherActivity;->aspect:Lorg/defjamffny/android/LauncherActivity$ChoicePill;

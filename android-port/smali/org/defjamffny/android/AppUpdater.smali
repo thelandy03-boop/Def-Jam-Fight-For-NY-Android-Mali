@@ -17,7 +17,7 @@
 
 
 # static fields
-.field public static final CURRENT_VERSION:Ljava/lang/String; = "v1.1.2"
+.field public static final CURRENT_VERSION:Ljava/lang/String; = "v1.1.3"
 
 .field public static final GITHUB_REPO:Ljava/lang/String; = "thelandy03-boop/Def-Jam-Fight-For-NY-Android-Mali"
 
