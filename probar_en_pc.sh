@@ -21,6 +21,7 @@ fi
 # 3. Lanzar Cage con Waydroid en X11 en segundo plano si no está abierto
 if ! pgrep -x cage >/dev/null 2>&1; then
     echo ">> Limpiando sesión previa si existía..."
+    python3 -c "import dbus; bus = dbus.SystemBus(); obj = bus.get_object('id.waydro.Container', '/ContainerManager'); iface = dbus.Interface(obj, 'id.waydro.ContainerManager'); iface.Stop(True)" 2>/dev/null || true
     waydroid session stop 2>/dev/null || true
     sleep 1
     rm -f /run/user/1000/wayland-0 /run/user/1000/wayland-0.lock 2>/dev/null || true
