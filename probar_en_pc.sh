@@ -25,6 +25,7 @@ if ! pgrep -x cage >/dev/null 2>&1; then
     waydroid session stop 2>/dev/null || true
     sleep 1
     rm -f /run/user/1000/wayland-0 /run/user/1000/wayland-0.lock 2>/dev/null || true
+    rm -f /tmp/cage.log 2>/dev/null || true
 
     echo ">> Lanzando Cage y Waydroid en tu monitor (DISPLAY :0.0)..."
     DISPLAY=:0.0 cage -- bash -c '
@@ -34,9 +35,17 @@ if ! pgrep -x cage >/dev/null 2>&1; then
         wait
     ' > /tmp/cage.log 2>&1 &
     
-    echo ">> Esperando a que arranque la interfaz gráfica..."
-    sleep 8
 fi
+
+echo ">> Esperando a que el sistema Android arranque completamente (15-25s)..."
+for i in {1..40}; do
+    if grep -q "Android with user 0 is ready" /tmp/cage.log 2>/dev/null; then
+        echo ">> ¡Android iniciado con éxito!"
+        sleep 2
+        break
+    fi
+    sleep 1
+done
 
 # 4. Instalar el APK más reciente (v1.1.3)
 echo ">> Instalando APK v1.1.3 en Waydroid..."
