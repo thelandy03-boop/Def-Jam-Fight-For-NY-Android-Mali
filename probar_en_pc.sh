@@ -19,7 +19,12 @@ if ! systemctl is-active --quiet waydroid-container 2>/dev/null; then
 fi
 
 # 3. Lanzar Cage con Waydroid en X11 en segundo plano si no está abierto
-if ! waydroid status 2>/dev/null | grep -q "Session:.*RUNNING"; then
+if ! pgrep -x cage >/dev/null 2>&1; then
+    echo ">> Limpiando sesión previa si existía..."
+    waydroid session stop 2>/dev/null || true
+    sleep 1
+    rm -f /run/user/1000/wayland-0 /run/user/1000/wayland-0.lock 2>/dev/null || true
+
     echo ">> Lanzando Cage y Waydroid en tu monitor (DISPLAY :0.0)..."
     DISPLAY=:0.0 cage -- bash -c '
         waydroid session start &
